@@ -11,50 +11,54 @@ pipeline {
         }
         stages {
             stage('checkout git') {
-                steps {
-                    log.info 'checkout'
-                }
+               teps {
+             script { 
+                 log.info 'Starting'
+             }
+        }
             }
 
             stage('build') {
                 steps {
-                   log.info 'build'
+                  script { 
+                         log.info 'build'
+                     }
                 }
             }
 
             stage ('test') {
                 steps {
                     parallel (
-                        "unit tests": {  log.info 'unit test' },
-                        "integration tests": {  log.info 'integration test' }
+                            "unit tests": {  script { log.info 'unit test'} },
+                            "integration tests": {  script { log.info 'integration test'} }
                     )
                 }
             }
 
             stage('deploy developmentServer'){
                 steps {
-                 log.info 'deploy dev'
+                        script { log.info 'deploy dev'}
                     deploy(pipelineParams.developmentServer, pipelineParams.serverPort)
                 }
             }
 
             stage('deploy staging'){
                 steps {
-                 log.info 'deploy staging'
+                        script { log.info 'deploy staging'}
                     deploy(pipelineParams.stagingServer, pipelineParams.serverPort)
                 }
             }
 
             stage('deploy production'){
                 steps {
-                 log.info 'deploy prod'
+                        script {  log.info 'deploy prod'}
                     deploy(pipelineParams.productionServer, pipelineParams.serverPort)
                 }
             }
         }
         post {
             failure {
-                 log.warning 'deploy warning'
+                    script { log.warning 'deploy warning'}
             }
         }
     }
