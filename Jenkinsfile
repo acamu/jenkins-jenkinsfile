@@ -11,10 +11,10 @@ pipeline {
         }
         stages {
             stage('checkout git') {
-               teps {
-             script { 
-                 log.info 'Starting'
-             }
+               steps {
+                     script { 
+                         log.info 'Starting'
+                     }
         }
             }
 
