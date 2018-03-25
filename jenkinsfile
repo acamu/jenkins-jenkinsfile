@@ -3,46 +3,49 @@ pipeline {
         stages {
             stage('checkout git') {
                 steps {
-                    git branch: pipelineParams.branch, credentialsId: 'GitCredentials', url: pipelineParams.scmUrl
+                    log.info("checkout")
                 }
             }
 
             stage('build') {
                 steps {
-                    sh 'mvn clean package -DskipTests=true'
+                   log.info("build")
                 }
             }
 
             stage ('test') {
                 steps {
                     parallel (
-                        "unit tests": { sh 'mvn test' },
-                        "integration tests": { sh 'mvn integration-test' }
+                        "unit tests": {  log.info("unit test") },
+                        "integration tests": {  log.info("integration test") }
                     )
                 }
             }
 
             stage('deploy developmentServer'){
                 steps {
+                 log.info("deploy dev")
                     deploy(pipelineParams.developmentServer, pipelineParams.serverPort)
                 }
             }
 
             stage('deploy staging'){
                 steps {
+                 log.info("deploy staging")
                     deploy(pipelineParams.stagingServer, pipelineParams.serverPort)
                 }
             }
 
             stage('deploy production'){
                 steps {
+                 log.info("deploy prod")
                     deploy(pipelineParams.productionServer, pipelineParams.serverPort)
                 }
             }
         }
         post {
             failure {
-                mail to: pipelineParams.email, subject: 'Pipeline failed', body: "${env.BUILD_URL}"
+                 log.warning("deploy warning")
             }
         }
     }
