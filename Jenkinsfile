@@ -12,49 +12,49 @@ pipeline {
         stages {
             stage('checkout git') {
                 steps {
-                    log.info("checkout")
+                    log.info 'checkout'
                 }
             }
 
             stage('build') {
                 steps {
-                   log.info("build")
+                   log.info 'build'
                 }
             }
 
             stage ('test') {
                 steps {
                     parallel (
-                        "unit tests": {  log.info("unit test") },
-                        "integration tests": {  log.info("integration test") }
+                        "unit tests": {  log.info 'unit test' },
+                        "integration tests": {  log.info 'integration test' }
                     )
                 }
             }
 
             stage('deploy developmentServer'){
                 steps {
-                 log.info("deploy dev")
+                 log.info 'deploy dev'
                     deploy(pipelineParams.developmentServer, pipelineParams.serverPort)
                 }
             }
 
             stage('deploy staging'){
                 steps {
-                 log.info("deploy staging")
+                 log.info 'deploy staging'
                     deploy(pipelineParams.stagingServer, pipelineParams.serverPort)
                 }
             }
 
             stage('deploy production'){
                 steps {
-                 log.info("deploy prod")
+                 log.info 'deploy prod'
                     deploy(pipelineParams.productionServer, pipelineParams.serverPort)
                 }
             }
         }
         post {
             failure {
-                 log.warning("deploy warning")
+                 log.warning 'deploy warning'
             }
         }
     }
