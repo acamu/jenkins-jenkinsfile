@@ -38,21 +38,21 @@ pipeline {
             stage('deploy developmentServer'){
                 steps {
                         script { log.info 'deploy dev'}
-                    deploy(pipelineParams.developmentServer, pipelineParams.serverPort)
+                    deploy(developmentServer, serverPort)
                 }
             }
 
             stage('deploy staging'){
                 steps {
                         script { log.info 'deploy staging'}
-                    deploy(pipelineParams.stagingServer, pipelineParams.serverPort)
+                    deploy(stagingServer, serverPort)
                 }
             }
 
             stage('deploy production'){
                 steps {
                         script {  log.info 'deploy prod'}
-                    deploy(pipelineParams.productionServer, pipelineParams.serverPort)
+                    deploy(productionServer, serverPort)
                 }
             }
         }
