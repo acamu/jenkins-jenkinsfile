@@ -63,6 +63,11 @@ pipeline {
                 
               //  "integration tests": {  script { log.info 'integration test'} }
                 
+                stage('Reserve binary') {
+                        stash includes: 'all/target/*.war', name: 'war'
+                }
+                
+                
                 //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
                 stage('SonarQube analysis') {
                     withSonarQubeEnv('My SonarQube Server') {
@@ -82,6 +87,27 @@ pipeline {
                         }
                     }
 
+                
+                 stage('Distribute WAR') {
+                        //sh "rm all/target/*.war"
+                        unstash 'war'
+                        echo "Deploy Deployment Unit to Artifactory."
+                        def uploadSpec = """
+                       {
+                           "files": [
+                               {
+                                   "pattern": "all/target/all-(*).war",
+                                   "target": "libs-release-local/org/acam/web/{1}/",
+                                   "props":  "where=arnaud;owner=acamu" 
+                               } ]         
+                           }
+                           """
+                        buildInfo = Artifactory.newBuildInfo()
+                        buildInfo.env.capture = true
+                        buildInfo = server.upload(uploadSpec)
+                    }
+
+                
             stage('deploy developmentServer'){
                     
                 input 'Do you approve deployment?'
