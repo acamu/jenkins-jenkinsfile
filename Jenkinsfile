@@ -34,7 +34,7 @@ pipeline {
                 }
             }
 
-            stage ('test') {
+            stage ('unit test') {
                 steps {
                     parallel (
                             "unit tests": {  
@@ -55,10 +55,14 @@ pipeline {
                                 }
                             
                             },
-                            "integration tests": {  script { log.info 'integration test'} }
+                            
+                            "Other tests": {  script { log.info 'Other test'} }
                     )
                 }
             }
+                
+              //  "integration tests": {  script { log.info 'integration test'} }
+                
                 //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
                 stage('SonarQube analysis') {
                     withSonarQubeEnv('My SonarQube Server') {
@@ -70,7 +74,7 @@ pipeline {
                 
                 //https://jenkins.io/blog/2017/04/18/continuousdelivery-devops-sonarqube/
                 stage("SonarQube Quality Gate") { 
-                        timeout(time: 1, unit: 'HOURS') { 
+                        timeout(time: 5, unit: 'MINUTES') {
                            def qg = waitForQualityGate() 
                            if (qg.status != 'OK') {
                              error "Pipeline aborted due to quality gate failure: ${qg.status}"
