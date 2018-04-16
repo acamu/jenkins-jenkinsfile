@@ -11,10 +11,15 @@ pipeline {
         }
         stages {
             stage('checkout git') {
+                     when {
+                 branch 'master'  //only run these steps on the master branch
+                }
                steps {
                      script { 
                          log.info 'Starting'
                      }
+                     cleanWs() 
+                     checkout scm
         }
             }
 
