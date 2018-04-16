@@ -106,7 +106,14 @@ pipeline {
                         buildInfo.env.capture = true
                         buildInfo = server.upload(uploadSpec)
                     }
-
+                
+                 stage('Distribute Docker image') {
+                     echo "Push Docker image to Artifactory Docker Registry."
+                         def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
+                            def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
+                            buildInfo.append(dockerInfo)
+                        server.publishBuildInfo(buildInfo)
+                 }
                 
             stage('deploy developmentServer'){
                     
