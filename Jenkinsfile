@@ -43,7 +43,7 @@ pipeline {
                                  // Any maven phase that that triggers the test phase can be used here.
                                 //sh "mvn test -B"
                                 //Or gradle task
-                                //sh "./gradlew -x test"
+                                //sh './gradlew -x test'
                             } catch(err) {
                                 step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                                   if (currentBuild.result == 'UNSTABLE')
@@ -59,6 +59,14 @@ pipeline {
                     )
                 }
             }
+                //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
+                stage('SonarQube analysis') {
+                    withSonarQubeEnv('My SonarQube Server') {
+                      // requires SonarQube Scanner for Gradle 2.1+
+                      // It's important to add --info because of SONARJNKNS-281
+                      sh './gradlew --info sonarqube'
+                    }
+                  }
 
             stage('deploy developmentServer'){
                     
