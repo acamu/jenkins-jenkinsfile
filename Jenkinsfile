@@ -28,7 +28,7 @@ pipeline {
                      }
                         //Build
                         //Gradle
-                        //sh './gradlew clean build'
+                        //sh "./gradlew clean build"
                         //Or Mvn
                         //sh xxx
                 }
@@ -41,16 +41,17 @@ pipeline {
                                     script { log.info 'unit test'} 
                             try {
                                  // Any maven phase that that triggers the test phase can be used here.
-                                //sh 'mvn test -B'
+                                //sh "mvn test -B"
                                 //Or gradle task
-                                //sh ./gradlew -x test
+                                //sh "./gradlew -x test"
                             } catch(err) {
                                 step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                                   if (currentBuild.result == 'UNSTABLE')
                                     currentBuild.result = 'FAILURE'
                                   throw err
                             }finally {
-                                  step([$class: 'JUnitResultArchiver', testResults: '**/TEST-*.xml'])
+                                  archiveUnitTestResults()
+                                  archiveCheckstyleResults()
                                 }
                             
                             },
@@ -92,3 +93,16 @@ pipeline {
             }
         }
     }
+
+def archiveUnitTestResults() {
+    step([$class: "JUnitResultArchiver", testResults: "build/**/TEST-*.xml"])
+}
+
+def archiveCheckstyleResults() {
+    step([$class: "CheckStylePublisher",
+          canComputeNew: false,
+          defaultEncoding: "",
+          healthy: "",
+          pattern: "build/reports/checkstyle/main.xml",
+          unHealthy: ""])
+}
