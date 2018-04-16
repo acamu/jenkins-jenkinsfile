@@ -19,6 +19,9 @@ pipeline {
             }
 
             stage('build') {
+                when {
+                 branch 'master'  //only run these steps on the master branch
+                }
                 steps {
                   script { 
                          log.info 'build'
@@ -36,6 +39,8 @@ pipeline {
             }
 
             stage('deploy developmentServer'){
+                    
+                input 'Do you approve deployment?'
                 steps {
                         script { log.info 'deploy dev'}
                     deploy(developmentServer, serverPort)
@@ -59,6 +64,10 @@ pipeline {
         post {
             failure {
                     script { log.warning 'deploy warning'}
+                     // notify users when the Pipeline fails
+                     mail to: 'team@example.com',
+          subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+          body: "Something is wrong with ${env.BUILD_URL}"
             }
         }
     }
