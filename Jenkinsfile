@@ -33,7 +33,7 @@ pipeline {
                      }
                         //Build
                         //Gradle
-                        //sh "./gradlew clean build"
+                        //sh './gradlew clean build -x test
                         //Or Mvn
                         //sh xxx
                 }
@@ -48,7 +48,9 @@ pipeline {
                                  // Any maven phase that that triggers the test phase can be used here.
                                 //sh "mvn test -B"
                                 //Or gradle task
-                                //sh './gradlew clean -x test'
+                                //sh './gradlew test'
+                                // sh (script: './gradlew test', returnStatus: true)
+                                    
                             } catch(err) {
                                 step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                                   if (currentBuild.result == 'UNSTABLE')
