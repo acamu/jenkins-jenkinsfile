@@ -87,7 +87,7 @@ pipeline {
                         }
                     }
 
-                
+                //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
                  stage('Distribute WAR') {
                         //sh "rm all/target/*.war"
                         unstash 'war'
