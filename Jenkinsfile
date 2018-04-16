@@ -26,13 +26,34 @@ pipeline {
                   script { 
                          log.info 'build'
                      }
+                        //Build
+                        //Gradle
+                        //sh './gradlew clean build'
+                        //Or Mvn
+                        //sh xxx
                 }
             }
 
             stage ('test') {
                 steps {
                     parallel (
-                            "unit tests": {  script { log.info 'unit test'} },
+                            "unit tests": {  
+                                    script { log.info 'unit test'} 
+                            try {
+                                 // Any maven phase that that triggers the test phase can be used here.
+                                //sh 'mvn test -B'
+                                //Or gradle task
+                                //sh ./gradlew -x test
+                            } catch(err) {
+                                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                                  if (currentBuild.result == 'UNSTABLE')
+                                    currentBuild.result = 'FAILURE'
+                                  throw err
+                            }finally {
+                                  step([$class: 'JUnitResultArchiver', testResults: '**/TEST-*.xml'])
+                                }
+                            
+                            },
                             "integration tests": {  script { log.info 'integration test'} }
                     )
                 }
