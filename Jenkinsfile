@@ -67,6 +67,16 @@ pipeline {
                       sh './gradlew --info sonarqube'
                     }
                   }
+                
+                //https://jenkins.io/blog/2017/04/18/continuousdelivery-devops-sonarqube/
+                stage("SonarQube Quality Gate") { 
+                        timeout(time: 1, unit: 'HOURS') { 
+                           def qg = waitForQualityGate() 
+                           if (qg.status != 'OK') {
+                             error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                           }
+                        }
+                    }
 
             stage('deploy developmentServer'){
                     
