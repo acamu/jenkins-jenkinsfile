@@ -122,6 +122,14 @@ pipeline {
                         server.publishBuildInfo(buildInfo)
                  }
                 
+                stage('check Plage de service to deliver app'){
+                   steps {
+                        script { 
+                                log.info 'deploy dev'}
+                    
+                   }     
+                }
+                
             stage('deploy developmentServer'){
                     
                 input 'Do you approve deployment?'
