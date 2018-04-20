@@ -19,7 +19,8 @@ pipeline {
                          log.info 'Starting'
                      }
                      cleanWs() 
-                     checkout scm
+                       
+                     //checkout scm
         }
             }
 
