@@ -72,7 +72,7 @@ pipeline {
         //  "integration tests": {  script { log.info 'integration test'} }
 
         stage('Reserve binary') {
-            stash includes: 'all/target/*.war', name: 'war'
+           // stash includes: 'all/target/*.war', name: 'war'
         }
 
         //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
@@ -97,7 +97,7 @@ pipeline {
         //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
         stage('Distribute WAR') {
             //sh "rm all/target/*.war"
-            unstash 'war'
+          //  unstash 'war'
             echo "Deploy Deployment Unit to Artifactory."
             def uploadSpec = """
                        {
