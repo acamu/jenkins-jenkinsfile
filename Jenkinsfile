@@ -96,30 +96,34 @@ pipeline {
 
         //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
         stage('Distribute WAR') {
-            //sh "rm all/target/*.war"
-          //  unstash 'war'
-            echo "Deploy Deployment Unit to Artifactory."
-            def uploadSpec = """
-                       {
-                           "files": [
-                               {
-                                   "pattern": "all/target/all-(*).war",
-                                   "target": "libs-release-local/org/acam/web/{1}/",
-                                   "props":  "where=arnaud;owner=acamu" 
-                               } ]         
-                           }
-                           """
-            buildInfo = Artifactory.newBuildInfo()
-            buildInfo.env.capture = true
-            buildInfo = server.upload(uploadSpec)
+            steps {
+                //sh "rm all/target/*.war"
+              //  unstash 'war'
+                echo "Deploy Deployment Unit to Artifactory."
+                def uploadSpec = """
+                           {
+                               "files": [
+                                   {
+                                       "pattern": "all/target/all-(*).war",
+                                       "target": "libs-release-local/org/acam/web/{1}/",
+                                       "props":  "where=arnaud;owner=acamu" 
+                                   } ]         
+                               }
+                               """
+                buildInfo = Artifactory.newBuildInfo()
+                buildInfo.env.capture = true
+                buildInfo = server.upload(uploadSpec)
+            }
         }
 
         stage('Distribute Docker image') {
-            echo "Push Docker image to Artifactory Docker Registry."
-            def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
-            def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
-            buildInfo.append(dockerInfo)
-            server.publishBuildInfo(buildInfo)
+            steps {
+                echo "Push Docker image to Artifactory Docker Registry."
+                def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
+                def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
+                buildInfo.append(dockerInfo)
+                server.publishBuildInfo(buildInfo)
+            }
         }
 
         stage('check Plage de service to deliver app') {
