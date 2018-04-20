@@ -77,19 +77,23 @@ pipeline {
 
         //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
         stage('SonarQube analysis') {
-            withSonarQubeEnv('My SonarQube Server') {
-                // requires SonarQube Scanner for Gradle 2.1+
-                // It's important to add --info because of SONARJNKNS-281
-                sh './gradlew --info sonarqube'
+            steps {
+                withSonarQubeEnv('My SonarQube Server') {
+                    // requires SonarQube Scanner for Gradle 2.1+
+                    // It's important to add --info because of SONARJNKNS-281
+                    sh './gradlew --info sonarqube'
+                }
             }
         }
 
         //https://jenkins.io/blog/2017/04/18/continuousdelivery-devops-sonarqube/
         stage("SonarQube Quality Gate") {
-            timeout(time: 5, unit: 'MINUTES') {
-                def qg = waitForQualityGate()
-                if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
                 }
             }
         }
