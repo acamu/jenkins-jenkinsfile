@@ -105,6 +105,7 @@ pipeline {
         } 
 
         //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
+        /*
         stage('Distribute WAR') {
             steps {
                 //sh "rm all/target/*.war"
@@ -135,6 +136,7 @@ pipeline {
                 server.publishBuildInfo(buildInfo)
             }
         }
+        */
 
         stage('check Plage de service to deliver app') {
             steps {
@@ -167,6 +169,7 @@ pipeline {
                 deploy(productionServer, serverPort)
             }
         }
+        
     }
     post {
         failure {
