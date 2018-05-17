@@ -25,16 +25,21 @@ pipeline {
         }
 
         stage('build') {
-            when {
-                branch 'master'  //only run these steps on the master branch
-            }
+            //when {
+           //     branch 'master'  //only run these steps on the master branch
+            //}
             steps {
                 script {
                     log.info 'build'
                 }
                 //Build
                 //Gradle
-                //sh './gradlew clean build -x test
+                if (isUnix()) {
+                    sh './gradlew clean build -x test'
+                } else {
+                    bat 'gradlew.bat clean build -x test'
+                }
+                
                 //Or Mvn
                 //sh xxx
             }
