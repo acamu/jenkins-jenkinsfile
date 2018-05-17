@@ -31,15 +31,15 @@ pipeline {
             steps {
                 script {
                     log.info 'build'
-                }
-                //Build
-                //Gradle
-                if (isUnix()) {
-                    sh './gradlew clean build -x test'
-                } else {
-                    bat 'gradlew.bat clean build -x test'
-                }
                 
+                    //Build
+                    //Gradle
+                    if (isUnix()) {
+                        sh './gradlew clean build -x test'
+                    } else {
+                        bat 'gradlew.bat clean build -x test'
+                    }
+                }
                 //Or Mvn
                 //sh xxx
             }
