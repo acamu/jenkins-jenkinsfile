@@ -90,16 +90,19 @@ pipeline {
         }
 
         //https://jenkins.io/blog/2017/04/18/continuousdelivery-devops-sonarqube/
+        https://stackoverflow.com/questions/43588403/why-sonar-fails-at-waitforqualitygate-with-error-401
         stage("SonarQube Quality Gate") {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+            steps { 
+                script { 
+                    timeout(time: 1, unit: 'MINUTES') { // Just in case something goes wrong, pipeline will be killed after a timeout 
+                        def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv 
+                        if (qg.status != 'OK') { 
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
                     }
                 }
             }
-        }
+        } 
 
         //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
         stage('Distribute WAR') {
