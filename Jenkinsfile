@@ -20,7 +20,7 @@ pipeline {
                 }
                 cleanWs()
 
-                //checkout scm
+                checkout scm
             }
         }
 
