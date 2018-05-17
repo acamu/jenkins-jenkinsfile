@@ -75,7 +75,12 @@ pipeline {
         //  "integration tests": {  script { log.info 'integration test'} }
 
         stage('Reserve binary') {
+            steps {
            // stash includes: 'all/target/*.war', name: 'war'
+                script { 
+                    log.info 'Reserver binary'
+                }
+            }
         }
 
         //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
@@ -155,16 +160,10 @@ pipeline {
                                 description: 'If you like Java, just push the button',name: 'Yes?')])
 
                     echo ("Java rocks?:" + doesJavaRock)
+                    script { log.info 'deploy dev' }
+                    deploy(developmentServer, serverPort)
                  }
              }
-            
-
-            
-            //input 'Do you approve deployment?'
-            steps {
-                script { log.info 'deploy dev' }
-                deploy(developmentServer, serverPort)
-            }
         }
 
         stage('deploy staging') {
