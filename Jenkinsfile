@@ -59,6 +59,13 @@ pipeline {
                                         //sh './gradlew test'
                                         // sh (script: './gradlew test', returnStatus: true)
 
+                                        
+                                          if (isUnix()) {
+                                            sh './gradlew test'
+                                        } else {
+                                            bat 'gradlew.bat test'
+                                        }
+                                        
                                     } catch (err) {
                                         step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                                         if (currentBuild.result == 'UNSTABLE')
