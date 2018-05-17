@@ -44,23 +44,26 @@ pipeline {
             steps {
                 parallel(
                         "unit tests": {
-                            script { log.info 'unit test' }
-                            try {
-                                // Any maven phase that that triggers the test phase can be used here.
-                                //sh "mvn test -B"
-                                //Or gradle task
-                                //sh './gradlew test'
-                                // sh (script: './gradlew test', returnStatus: true)
+                            script { 
+                                    log.info 'unit test' 
+                                
+                                    try {
+                                        // Any maven phase that that triggers the test phase can be used here.
+                                        //sh "mvn test -B"
+                                        //Or gradle task
+                                        //sh './gradlew test'
+                                        // sh (script: './gradlew test', returnStatus: true)
 
-                            } catch (err) {
-                                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-                                if (currentBuild.result == 'UNSTABLE')
-                                    currentBuild.result = 'FAILURE'
-                                throw err
-                            } finally {
-                                archiveUnitTestResults()
-                                archiveCheckstyleResults()
-                            }
+                                    } catch (err) {
+                                        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                                        if (currentBuild.result == 'UNSTABLE')
+                                            currentBuild.result = 'FAILURE'
+                                        throw err
+                                    } finally {
+                                        archiveUnitTestResults()
+                                        archiveCheckstyleResults()
+                                    }
+                                }
 
                         },
 
