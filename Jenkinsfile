@@ -1,9 +1,9 @@
 #!groovy
 @Library('My-library') _
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 2 most recent builds. */
 def projectProperties = [
-    [$class: 'BuildDiscarderProperty',strategy: [$class: 'LogRotator', numToKeepStr: '5']],
+    [$class: 'BuildDiscarderProperty',strategy: [$class: 'LogRotator', numToKeepStr: '2']],
 ]
 
 properties(projectProperties)
