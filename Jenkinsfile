@@ -44,7 +44,8 @@ pipeline {
                     //Build
                     //Gradle
                     if (isUnix()) {
-                        sh './gradlew clean build -x test'
+                        //sh './gradlew clean build -x test'
+                         sh './gradlew clean build test'
                     } else {
                         bat 'gradlew.bat clean build -x test'
                     }
