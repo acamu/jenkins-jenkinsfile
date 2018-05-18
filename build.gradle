@@ -14,6 +14,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'org.sonarqube'
+apply plugin: 'jacoco'
 
 sonarqube {
     properties {
@@ -35,4 +36,19 @@ dependencies {
             'org.junit.vintage:junit-vintage-engine:4.12.1',
             'org.junit.platform:junit-platform-launcher:1.0.1',
             'org.junit.platform:junit-platform-runner:1.0.1')
+}
+
+jacocoTestReport{
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.destination "build/reports/jacoco/html"
+    }
+    executionData = files('build/jacoco/test.exec')
+}
+
+test { finalizedBy jacocoTestReport
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+    }
 }
