@@ -38,7 +38,7 @@ dependencies {
             'org.junit.platform:junit-platform-runner:1.0.1')
 }
 
-jacocoTestReport{
+jacocoTestReport {
     reports {
         xml.enabled true
         csv.enabled true
@@ -47,7 +47,8 @@ jacocoTestReport{
     executionData = files('build/jacoco/test.exec')
 }
 
-test { finalizedBy jacocoTestReport
+test { 
+    finalizedBy jacocoTestReport
     testLogging {
         events "passed", "skipped", "failed", "standardError"
     }
