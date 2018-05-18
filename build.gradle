@@ -53,7 +53,7 @@ jacocoTestReport {
 }
 
 test { 
-  //  useJUnitPlatform()
+    useJUnitPlatform()
     finalizedBy jacocoTestReport
     testLogging {
         events "passed", "skipped", "failed", "standardError"
