@@ -105,7 +105,7 @@ pipeline {
                 withSonarQubeEnv('SonarQubeServer') {
                     // requires SonarQube Scanner for Gradle 2.1+
                     // It's important to add --info because of SONARJNKNS-281
-                    sh './gradlew --scan --info sonarqube'
+                    sh './gradlew -x --info sonarqube'
 
                 }
                      }
