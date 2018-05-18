@@ -7,12 +7,21 @@ buildscript {
     }
     dependencies {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.1'
+        classpath 'org.sonarqube.gradle:gradle-sonarqube-plugin:1.0'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'org.sonarqube'
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Java :: Simple Project :: SonarQube Scanner for Gradle"
+        property "sonar.projectKey", "org.sonarqube:java-gradle-simple"
+        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+    }
+}
 
 repositories {
     mavenCentral()
