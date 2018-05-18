@@ -23,11 +23,11 @@ sonarqube {
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
 }
-
+/*
 jacoco {
    // toolVersion = "0.7.7.201606060606" //jacoco version
     reportsDir = file("$buildDir/reports/jacoco") //default directory where jacoco generates test reports
-}
+}*/
 
 repositories {
     mavenCentral()
@@ -43,7 +43,6 @@ dependencies {
             'org.junit.platform:junit-platform-runner:1.0.1')
 }
 
-/*
 jacocoTestReport {
     reports {
         xml.enabled true
@@ -60,4 +59,4 @@ test {
         events "passed", "skipped", "failed", "standardError"
     }
 }
-*/
+
