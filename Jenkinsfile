@@ -71,7 +71,7 @@ pipeline {
 
                                         
                                           if (isUnix()) {
-                                            sh './gradlew test'
+                                            sh './gradlew build test'
                                         } else {
                                             bat 'gradlew.bat test'
                                         }
