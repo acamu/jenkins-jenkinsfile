@@ -1,5 +1,13 @@
 #!groovy
 @Library('My-library') _
+
+/* Only keep the 10 most recent builds. */
+def projectProperties = [
+    [$class: 'BuildDiscarderProperty',strategy: [$class: 'LogRotator', numToKeepStr: '5']],
+]
+
+properties(projectProperties)
+
 pipeline {
     agent any
     environment {
@@ -129,9 +137,10 @@ pipeline {
         } 
 
         //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
-        /*
+        
         stage('Distribute WAR') {
             steps {
+                 script { 
                 //sh "rm all/target/*.war"
               //  unstash 'war'
                 echo "Deploy Deployment Unit to Artifactory."
@@ -145,24 +154,39 @@ pipeline {
                                    } ]         
                                }
                                """
-                buildInfo = Artifactory.newBuildInfo()
-                buildInfo.env.capture = true
-                buildInfo = server.upload(uploadSpec)
+               // buildInfo = Artifactory.newBuildInfo()
+               // buildInfo.env.capture = true
+               // buildInfo = server.upload(uploadSpec)
+                }
             }
         }
 
         stage('Distribute Docker image') {
             steps {
                 echo "Push Docker image to Artifactory Docker Registry."
-                def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
-                def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
-                buildInfo.append(dockerInfo)
-                server.publishBuildInfo(buildInfo)
+               // def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
+               // def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
+               // buildInfo.append(dockerInfo)
+               // server.publishBuildInfo(buildInfo)
             }
         }
+        
+      stage('Xray Quality Gate') {
+          steps {
+                echo "Xray Quality Gate"
+          /*
+            def scanConfig = [
+                    'buildName'  : buildInfo.name,
+                    'buildNumber': buildInfo.number,
+                    'failBuild'  : false
+            ]
+            def scanResult = server.xrayScan scanConfig
+            echo scanResult as String
         */
+              }
+    }
 
-        stage('check Plage de service to deliver app') {
+      stage('check Plage de service to deliver app') {
             steps {
                 script {
                     log.info 'deploy dev'
@@ -201,13 +225,26 @@ pipeline {
         
     }
     post {
-        failure {
+         always {
+            echo 'Finished!'
+            deleteDir()
+        }
+        success {
+            echo 'Succeeeded.'
+        }
+        unstable {
+            echo 'Unstable.'
+        }
+       failure {
             script { log.warning 'deploy warning' }
             // notify users when the Pipeline fails
             mail to: 'team@example.com',
                     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is wrong with ${env.BUILD_URL}"
         }
+        changed {
+            echo 'Things in life change.'
+        } 
     }
 }
 
