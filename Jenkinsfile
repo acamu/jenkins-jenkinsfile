@@ -128,10 +128,11 @@ pipeline {
                     // requires SonarQube Scanner for Gradle 2.1+
                     // It's important to add --info because of SONARJNKNS-281
                    // sh './gradlew --stacktrace --debug  sonarqube'
-                     sh './gradlew sonarqube'
+                     //sh './gradlew sonarqube'
+                     sh 'gradle sonarqube'
 
                 }
-                     }
+              }
             }
         }
 
