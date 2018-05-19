@@ -18,6 +18,11 @@ pipeline {
         stagingServer = 'staging-myproject.mycompany.com'
         productionServer = 'production-myproject.mycompany.com'
     }
+    
+    tools {
+     gradle "gradle-4.6"
+    }
+    
     stages {
         stage('checkout git') {
            // when {
@@ -46,7 +51,8 @@ pipeline {
                     //Build
                     //Gradle
                     if (isUnix()) {
-                        sh './gradlew clean build -x test --info '
+                       // sh './gradlew clean build -x test --info '
+                         sh 'gradle clean build'
                         // sh './gradlew clean build test'
                     } else {
                         bat 'gradlew.bat clean build -x test'
