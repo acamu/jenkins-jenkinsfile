@@ -268,9 +268,9 @@ pipeline {
               */
               }
         }
-        changed {
+        /*changed {
             echo 'Things in life change.'
-        } 
+        } */
     }
 }
 
