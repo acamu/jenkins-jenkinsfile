@@ -241,9 +241,9 @@ pipeline {
         
     }
     post {
-         always {
+        always {
             echo 'Finished!'
-            deleteDir()
+            //deleteDir()
         }
         success {
             echo 'Succeeeded.'
