@@ -26,6 +26,8 @@ pipeline {
             steps {
                 script {
                     log.info 'Starting'
+                    //branch name from Jenkins environment variables
+                    log.info "My branch is: ${env.BRANCH_NAME}"
                 }
                 cleanWs()
 
