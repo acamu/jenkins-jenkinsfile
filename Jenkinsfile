@@ -83,9 +83,9 @@ pipeline {
 
                                         
                                           if (isUnix()) {
-                                           sh 'gradle test'
+                                           sh 'gradle test junit5CodeCoverageReport'
                                         } else {
-                                            bat 'gradlew.bat test'
+                                            bat 'gradlew.bat test junit5CodeCoverageReport'
                                         }
                                         
                                     } catch (err) {
