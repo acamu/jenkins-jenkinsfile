@@ -219,7 +219,7 @@ pipeline {
                                 description: 'If you like Java, just push the button',name: 'Yes?')])
 
                     echo ("Java rocks?:" + doesJavaRock)
-                    script { log.info 'deploy dev' }
+                    log.info 'deploy dev'
                     deploy(developmentServer, serverPort)
                  }
              }
@@ -227,15 +227,19 @@ pipeline {
 
         stage('deploy staging') {
             steps {
-                script { log.info 'deploy staging' }
-                deploy(stagingServer, serverPort)
+                script { 
+                    log.info 'deploy staging'
+                    deploy(stagingServer, serverPort)
+                     }
             }
         }
 
         stage('deploy production') {
             steps {
-                script { log.info 'deploy prod' }
-                deploy(productionServer, serverPort)
+                script { 
+                    log.info 'deploy prod' 
+                    deploy(productionServer, serverPort)
+                        }
             }
         }
         
@@ -243,7 +247,7 @@ pipeline {
     post {
         always {
             echo 'Finished!'
-            deleteDir()
+            //deleteDir()
         }
         success {
             echo 'Succeeeded.'
