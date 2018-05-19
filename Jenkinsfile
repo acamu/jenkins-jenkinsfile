@@ -59,8 +59,8 @@ pipeline {
                          bat './gradlew.bat clean build -x test'
                     }
                     
-                    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                    archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+                   // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                  //  archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
                 }
                 //Or Mvn
                 //sh xxx
