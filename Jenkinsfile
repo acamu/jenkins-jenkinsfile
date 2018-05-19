@@ -52,10 +52,11 @@ pipeline {
                     //Gradle
                     if (isUnix()) {
                        // sh './gradlew clean build -x test --info '
-                         sh 'gradle clean build'
+                         sh 'gradle clean build -x test'
                         // sh './gradlew clean build test'
                     } else {
-                        bat 'gradlew.bat clean build -x test'
+                        bat 'gradle clean build -x test'
+                         bat './gradlew.bat clean build -x test'
                     }
                     
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
@@ -82,7 +83,7 @@ pipeline {
 
                                         
                                           if (isUnix()) {
-                                            sh './gradlew test'
+                                           sh 'gradle test'
                                         } else {
                                             bat 'gradlew.bat test'
                                         }
