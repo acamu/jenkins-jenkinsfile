@@ -43,20 +43,29 @@ dependencies {
             'org.junit.platform:junit-platform-runner:1.0.1')
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        csv.enabled true
-        html.destination "build/reports/jacoco/html"
-    }
-    executionData = files('build/jacoco/test.exec')
+junitPlatform {
+    reportsDir file('build/test-results/test')
 }
 
-test { 
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-    testLogging {
-        events "passed", "skipped", "failed", "standardError"
+afterEvaluate {
+
+    jacoco {
+      //  toolVersion = toolVersions.jacoco
+       // toolVersion = "0.7.1.201405082137"
+        applyTo junitPlatformTest
+    }
+
+    task junit5CodeCoverageReport(type:JacocoReport){
+        executionData junitPlatformTest
+        sourceSets sourceSets.main
+        sourceDirectories = files(project.sourceSets.main.allSource.srcDirs)
+        classDirectories = files(project.sourceSets.main.output)
+        reports {
+            xml.enabled = true
+            xml.destination file("${buildDir}/jacoco/report.xml")
+            html.enabled = true
+            html.destination file("${buildDir}/jacoco/html")
+        }
     }
 }
 
