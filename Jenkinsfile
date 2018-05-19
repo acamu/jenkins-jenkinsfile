@@ -243,7 +243,7 @@ pipeline {
     post {
         always {
             echo 'Finished!'
-            //deleteDir()
+            deleteDir()
         }
         success {
             echo 'Succeeeded.'
