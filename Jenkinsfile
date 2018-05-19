@@ -98,7 +98,8 @@ pipeline {
 
         stage('Reserve binary') {
             steps {
-           // stash includes: 'all/target/*.war', name: 'war'
+                stash includes: 'all/target/*.war', name: 'war'
+                stash includes: 'all/target/*.jar', name: 'jar'
                 script { 
                     log.info 'Reserver binary'
                 }
@@ -143,8 +144,9 @@ pipeline {
             steps {
                  script { 
                 //sh "rm all/target/*.war"
-              //  unstash 'war'
-                echo "Deploy Deployment Unit to Artifactory."
+                //unstash 'war'
+                unstash 'jar'
+                echo "Deploy Deployment Unit to Artifactory or Nexus."
                 def uploadSpec = """
                            {
                                "files": [
