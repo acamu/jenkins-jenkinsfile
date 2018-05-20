@@ -87,5 +87,6 @@ afterEvaluate {
             html.destination file("${buildDir}/report/jacoco/html")
         }
     }
+     build.dependsOn junit5CodeCoverageReport
 }
 
