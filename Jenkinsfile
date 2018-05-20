@@ -88,6 +88,18 @@ pipeline {
                                             bat 'gradlew.bat test junit5CodeCoverageReport'
                                         }
                                         
+                                         try {
+                                            publishHTML(target: [
+                                                allowMissing         : true,
+                                                keepAll              : true,
+                                                reportDir            : './target/cov-reports',
+                                                reportFiles          : 'index.html',
+                                                reportName           : "LCOV Report"
+                                            ])
+                                        } catch (e) {
+                                          // ignore
+                                        }
+                                        
                                     } catch (err) {
                                         step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                                         if (currentBuild.result == 'UNSTABLE')
