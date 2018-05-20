@@ -93,7 +93,7 @@ pipeline {
                                             publishHTML(target: [
                                                 allowMissing         : true,
                                                 keepAll              : true,
-                                                reportDir            : './build/report/jacoco/html',
+                                                reportDir            : './build/reports/jacoco/html',
                                                 reportFiles          : 'index.html',
                                                 reportName           : "LCOV Report"
                                             ])
