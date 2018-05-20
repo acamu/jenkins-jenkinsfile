@@ -1,4 +1,4 @@
-group 'com.bnpparibas.devops'
+group 'org.acamu.devops'
 version '1.0-SNAPSHOT'
 
 buildscript {
