@@ -50,6 +50,8 @@ pipeline {
                 
                     //Build
                     //Gradle
+                    sh 'gradle clean build -x test'
+                    /*
                     if (isUnix()) {
                        // sh './gradlew clean build -x test --info '
                          sh 'gradle clean build -x test'
@@ -58,6 +60,7 @@ pipeline {
                         bat 'gradle clean build -x test'
                          bat './gradlew.bat clean build -x test'
                     }
+                    */
                     
                    // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                   //  archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
@@ -81,12 +84,14 @@ pipeline {
                                         //sh './gradlew test'
                                         // sh (script: './gradlew test', returnStatus: true)
 
-                                        
+                                         sh 'gradle test junit5CodeCoverageReport'
+                                        /*
                                           if (isUnix()) {
                                            sh 'gradle test junit5CodeCoverageReport'
                                         } else {
                                             bat 'gradlew.bat test junit5CodeCoverageReport'
                                         }
+                                        */
                                         
                                         //https://jenkins.io/blog/2016/07/01/html-publisher-plugin/
                                          try {
@@ -108,7 +113,7 @@ pipeline {
                                         throw err
                                     } finally {
                                         archiveUnitTestResults()
-                                      //  archiveCheckstyleResults()
+                                        archiveCheckstyleResults()
                                     }
                                 }
 
@@ -140,10 +145,9 @@ pipeline {
                 withSonarQubeEnv('SonarQubeServer') {
                     // requires SonarQube Scanner for Gradle 2.1+
                     // It's important to add --info because of SONARJNKNS-281
-                   // sh './gradlew --stacktrace --debug  sonarqube'
+                   // sh './gradlew --info  sonarqube'
                      //sh './gradlew sonarqube'
                      sh 'gradle sonarqube'
-
                 }
               }
             }
