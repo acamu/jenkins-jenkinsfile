@@ -153,7 +153,7 @@ pipeline {
 
         //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
         
-        stage('Distribute WAR') {
+        stage('Distribute artifact to repository') {
             steps {
                  script { 
                 //sh "rm all/target/*.war"
