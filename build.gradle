@@ -11,6 +11,22 @@ buildscript {
     }
 }
 
+ext {
+    JUNIT_JUPITER_VERSION = "5.0.2"
+    JUNIT_PLATFORM_VERSION = "1.0.2"
+    MOCKITO_VERSION = "2.12.0"
+    POWER_MOCK_UTILS_VERSION = "1.6.6"
+    ASSERTJ_CORE_VERSION = "3.8.0"
+    JACOCO_VERSION = "0.7.9"
+
+sonarProjectKey = "org.sonarqube:java-gradle-simple"
+sonarProjectName = "Java :: Simple Project :: SonarQube Scanner for Gradle"
+    jacocoDestinationFile = "${buildDir}/jacoco/junitPlatformTest.exec"
+    jacocoExclusions = ['**/Main*']
+
+}
+
+
 apply plugin: 'java'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'org.sonarqube'
@@ -20,9 +36,11 @@ apply plugin: "pmd"
 
 sonarqube {
     properties {
-        property "sonar.projectName", "Java :: Simple Project :: SonarQube Scanner for Gradle"
-        property "sonar.projectKey", "org.sonarqube:java-gradle-simple"
-        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+        property 'sonar.projectKey', sonarProjectKey
+        property 'sonar.projectName', sonarProjectName
+
+        property "sonar.jacoco.reportPath", jacocoDestinationFile
+        property 'sonar.coverage.exclusions', jacocoExclusions
     }
 }
 /*
