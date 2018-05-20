@@ -15,6 +15,8 @@ apply plugin: 'java'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
+apply plugin: "findbugs"
+apply plugin: "pmd"
 
 sonarqube {
     properties {
@@ -44,14 +46,32 @@ dependencies {
 }
 
 junitPlatform {
-    reportsDir file('build/test-results/test')
+     reportsDir file("$project.buildDir/reports/test")
 }
+
+
+findbugs {
+    ignoreFailures = true
+   // toolVersion = "3.0.1"
+    sourceSets = [sourceSets.main]
+    reportsDir = file("$project.buildDir/reports/findbugs")
+    effort = "max"
+}
+
+pmd {
+    ignoreFailures = true
+    sourceSets = [sourceSets.main]
+    reportsDir = file("$project.buildDir/reports/pmd")
+    ruleSets = ["java-basic", "java-braces"]
+}
+
 
 afterEvaluate {
 
     jacoco {
       //  toolVersion = toolVersions.jacoco
        // toolVersion = "0.7.1.201405082137"
+        reportsDir = file("$buildDir/reports/jacoco") //default directory where jacoco generates test reports
         applyTo junitPlatformTest
     }
 
@@ -62,9 +82,9 @@ afterEvaluate {
         classDirectories = files(project.sourceSets.main.output)
         reports {
             xml.enabled = true
-            xml.destination file("${buildDir}/jacoco/report.xml")
+            xml.destination file("${buildDir}/report/jacoco/report.xml")
             html.enabled = true
-            html.destination file("${buildDir}/jacoco/html")
+            html.destination file("${buildDir}/report/jacoco/html")
         }
     }
 }
