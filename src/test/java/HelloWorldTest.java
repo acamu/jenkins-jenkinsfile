@@ -8,4 +8,9 @@ class HelloWorldTest {
     void getHello() {
         assertEquals("Hello", HelloWorld.getInstance().getHello());
     }
+    
+    @Test
+    void getHello1() {
+        HelloWorld.main(null);
+    }
 }
