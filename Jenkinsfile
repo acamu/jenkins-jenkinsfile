@@ -88,6 +88,7 @@ pipeline {
                                             bat 'gradlew.bat test junit5CodeCoverageReport'
                                         }
                                         
+                                        //https://jenkins.io/blog/2016/07/01/html-publisher-plugin/
                                          try {
                                             publishHTML(target: [
                                                 allowMissing         : true,
