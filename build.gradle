@@ -71,7 +71,7 @@ afterEvaluate {
     jacoco {
       //  toolVersion = toolVersions.jacoco
        // toolVersion = "0.7.1.201405082137"
-        reportsDir = file("$buildDir/reports/jacoco") //default directory where jacoco generates test reports
+       // reportsDir = file("$buildDir/reports/jacoco") //default directory where jacoco generates test reports
         applyTo junitPlatformTest
     }
 
@@ -82,9 +82,9 @@ afterEvaluate {
         classDirectories = files(project.sourceSets.main.output)
         reports {
             xml.enabled = true
-            xml.destination file("${buildDir}/report/jacoco/report.xml")
+            xml.destination file("${buildDir}/reports/jacoco/report.xml")
             html.enabled = true
-            html.destination file("${buildDir}/report/jacoco/html")
+            html.destination file("${buildDir}/reports/jacoco/html")
         }
     }
      build.dependsOn junit5CodeCoverageReport
