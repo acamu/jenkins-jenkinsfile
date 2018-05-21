@@ -194,7 +194,9 @@ pipeline {
         
         stage('Distribute artifact to repository') {
             steps {
+               
                  script { 
+                   log.info "Push Artifact to Artifactory Registry."
                 //sh "rm all/target/*.war"
                 //unstash 'war'
                 //unstash 'jar'
@@ -203,25 +205,20 @@ pipeline {
                            {
                                "files": [
                                    {
-                                       "pattern": "all/target/all-(*).war",
+                                       "pattern": "all/target/all-(*).jar",
                                        "target": "libs-release-local/org/acam/web/{1}/",
                                        "props":  "where=arnaud;owner=acamu" 
                                    } ]         
                                }
                                """
-               // buildInfo = Artifactory.newBuildInfo()
-               // buildInfo.env.capture = true
-               // buildInfo = server.upload(uploadSpec)
-                }
-            }
-        }
-
-        stage('Publish to artifactory') {
-            steps {
-                echo "Push Artifact to Artifactory Registry."
-                //rtGradle.run rootDir: 'gradle-examples/gradle-example-ci-server/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
+                buildInfo = Artifactory.newBuildInfo()
+                buildInfo.env.capture = true
+                buildInfo = server.upload(uploadSpec)
+                     
+                      //rtGradle.run rootDir: 'gradle-examples/gradle-example-ci-server/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
                 //rtGradle.deployer.deployArtifacts buildInfo
                 //server.publishBuildInfo buildInfo
+                }
             }
         }
         
