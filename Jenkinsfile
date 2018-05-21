@@ -6,16 +6,14 @@ def projectProperties = [
     [$class: 'BuildDiscarderProperty',strategy: [$class: 'LogRotator', numToKeepStr: '2']],
 ]
 
+       def server
+       def rtGradle
+       def buildInfo
+
 properties(projectProperties)
 
 pipeline {
     agent any
-    
-     define {
-       def server
-       def rtGradle
-       def buildInfo
-     }
     
     environment {
         branch = 'master'
