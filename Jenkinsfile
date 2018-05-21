@@ -23,11 +23,11 @@ pipeline {
      gradle "gradle-4.6"
     }
     
-     // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
-   // def server = Artifactory.server "SERVER_ID"
-     // Create an Artifactory Maven instance.
-   // def rtMaven = Artifactory.newMavenBuild()
-    //def buildInfo
+     // Commin server Artifactoey variables
+    def server
+    def buildInfo
+    def rtGradle
+    
     
     stages {
         stage('checkout git') {
@@ -45,6 +45,25 @@ pipeline {
                 checkout scm
             }
         }
+        
+        stage ('Artifactory configuration') {
+             when {
+                branch 'master'  //only run these steps on the master branch
+            }
+            steps {
+                // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
+                server = Artifactory.server SERVER_ID
+
+                rtGradle = Artifactory.newGradleBuild()
+                rtGradle.tool = GRADLE_TOOL // Tool name from Jenkins configuration
+                rtGradle.deployer repo: 'libs-release-local', server: server
+                rtGradle.resolver repo: 'libs-release', server: server
+                rtGradle.deployer.deployArtifacts = false // Disable artifacts deployment during Gradle run
+
+                buildInfo = Artifactory.newBuildInfo()
+            }
+        }
+        
 
         stage('build') {
             //when {
@@ -200,7 +219,16 @@ pipeline {
             }
         }
 
-        stage('Distribute Docker image to registry') {
+        stage('Publish to artifactory') {
+            steps {
+                echo "Push Artifact to Artifactory Registry."
+                //rtGradle.run rootDir: 'gradle-examples/gradle-example-ci-server/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
+                //rtGradle.deployer.deployArtifacts buildInfo
+                //server.publishBuildInfo buildInfo
+            }
+        }
+        
+        stage('Publish Docker image to registry') {
             steps {
                 echo "Push Docker image to Artifactory Docker Registry."
                // def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
