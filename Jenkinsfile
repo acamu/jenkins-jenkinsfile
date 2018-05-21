@@ -115,8 +115,8 @@ pipeline {
                                             currentBuild.result = 'FAILURE'
                                         throw err
                                     } finally {
-                                        archiveUnitTestResults()
-                                        archiveCheckstyleResults()
+                                       // archiveUnitTestResults()
+                                       // archiveCheckstyleResults()
                                     }
                                 }
 
