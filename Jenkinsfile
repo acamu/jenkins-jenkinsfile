@@ -6,8 +6,8 @@ def projectProperties = [
     [$class: 'BuildDiscarderProperty',strategy: [$class: 'LogRotator', numToKeepStr: '2']],
 ]
 
- def server
- def rtGradle
+def server
+def rtGradle
 def buildInfo
 
 properties(projectProperties)
@@ -25,8 +25,7 @@ pipeline {
         SERVER_ID = 'artifactory6.0'
         GRADLE_TOOL = 'gradle-4.6'
     }
-   
-    
+
     tools {
      gradle "gradle-4.6"
     }
@@ -54,8 +53,6 @@ pipeline {
                 steps {
                      script {
 
-                        
-
                         // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
                         server = Artifactory.server SERVER_ID
 
@@ -66,12 +63,9 @@ pipeline {
                         rtGradle.deployer.deployArtifacts = false // Disable artifacts deployment during Gradle run
 
                         buildInfo = Artifactory.newBuildInfo()
-
-                        log.info "build info: ${buildInfo}"
                      }
                 }
             }
-
 
             stage('build') {
                 //when {
@@ -215,7 +209,7 @@ pipeline {
                                {
                                    "files": [
                                        {
-                                           "pattern": "build/libs/all-(*).jar",
+                                           "pattern": "build/libs/*.jar",
                                            "target": "libs-release-local/org/acam/web/{1}/",
                                            "props":  "where=arnaud;owner=acamu" 
                                        } ]         
@@ -225,7 +219,7 @@ pipeline {
                     buildInfo.env.capture = true
                     buildInfo = server.upload(uploadSpec)
 
-                          //rtGradle.run rootDir: 'gradle-examples/gradle-example-ci-server/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
+                     //rtGradle.run rootDir: 'gradle-examples/gradle-example-ci-server/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
                     //rtGradle.deployer.deployArtifacts buildInfo
                     server.publishBuildInfo buildInfo
                     }
