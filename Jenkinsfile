@@ -217,7 +217,7 @@ pipeline {
                      
                       //rtGradle.run rootDir: 'gradle-examples/gradle-example-ci-server/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
                 //rtGradle.deployer.deployArtifacts buildInfo
-                //server.publishBuildInfo buildInfo
+                server.publishBuildInfo buildInfo
                 }
             }
         }
