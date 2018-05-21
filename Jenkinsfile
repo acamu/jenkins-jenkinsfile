@@ -27,10 +27,6 @@ pipeline {
 
     stages {
         
-         def server
-         def rtGradle 
-         def buildInfo 
-        
         stage('checkout git') {
            // when {
            //     branch 'master'  //only run these steps on the master branch
@@ -51,6 +47,11 @@ pipeline {
             
             steps {
                  script {
+                             
+                     def server
+                     def rtGradle 
+                     def buildInfo 
+                     
                     // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
                     server = Artifactory.server SERVER_ID
 
@@ -61,6 +62,8 @@ pipeline {
                     rtGradle.deployer.deployArtifacts = false // Disable artifacts deployment during Gradle run
 
                     buildInfo = Artifactory.newBuildInfo()
+                     
+                     echo 'build info: ${buildInfo}'
                  }
             }
         }
