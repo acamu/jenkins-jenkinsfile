@@ -1,4 +1,4 @@
-#!groovy
+#!/bin/groovy
 @Library('My-library') _
 
 /* Only keep the 2 most recent builds. */
