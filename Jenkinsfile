@@ -157,7 +157,7 @@ pipeline {
                 }
             }
         }
-
+/*
         //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
         stage('SonarQube analysis') {
             steps {
@@ -189,9 +189,8 @@ pipeline {
                 }
             }
         } 
-
-        //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy
-        
+*/
+        //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy      
         stage('Distribute artifact to repository') {
             steps {
                
