@@ -25,9 +25,7 @@ pipeline {
      gradle "gradle-4.6"
     }
 
-   // stages {
-        
-        node {
+    stages {
         
              def server
              def rtGradle 
@@ -303,7 +301,7 @@ pipeline {
                             }
                 }
             }
-      //  }
+        }
         
     }
     post {
