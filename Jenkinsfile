@@ -17,6 +17,8 @@ pipeline {
         developmentServer = 'dev-myproject.mycompany.com'
         stagingServer = 'staging-myproject.mycompany.com'
         productionServer = 'production-myproject.mycompany.com'
+        SERVER_ID = 'artifactory6.0'
+        GRADLE_TOOL = 'gradle-4.6'
     }
     
     tools {
@@ -47,9 +49,7 @@ pipeline {
         }
         
         stage ('Artifactory configuration') {
-             when {
-                branch 'master'  //only run these steps on the master branch
-            }
+            
             steps {
                 // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
                 server = Artifactory.server SERVER_ID
