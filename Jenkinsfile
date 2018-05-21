@@ -23,6 +23,9 @@ pipeline {
      gradle "gradle-4.6"
     }
     
+     // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
+    def server = Artifactory.server "SERVER_ID"
+    
     stages {
         stage('checkout git') {
            // when {
