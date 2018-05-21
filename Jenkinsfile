@@ -20,10 +20,13 @@ pipeline {
         SERVER_ID = 'artifactory6.0'
         GRADLE_TOOL = 'gradle-4.6'
         
-         server
-         rtGradle 
-         buildInfo 
     }
+    
+     define {
+       def server
+       def rtGradle
+       def buildInfo
+     }
     
     tools {
      gradle "gradle-4.6"
