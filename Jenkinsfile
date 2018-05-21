@@ -200,12 +200,12 @@ pipeline {
                 //sh "rm all/target/*.war"
                 //unstash 'war'
                 //unstash 'jar'
-                echo "Deploy Deployment Unit to Artifactory or Nexus."
+                log.info "Deploy Deployment Unit to Artifactory or Nexus."
                 def uploadSpec = """
                            {
                                "files": [
                                    {
-                                       "pattern": "all/target/all-(*).jar",
+                                       "pattern": "build/libs/all-(*).jar",
                                        "target": "libs-release-local/org/acam/web/{1}/",
                                        "props":  "where=arnaud;owner=acamu" 
                                    } ]         
@@ -224,7 +224,7 @@ pipeline {
         
         stage('Publish Docker image to registry') {
             steps {
-                echo "Push Docker image to Artifactory Docker Registry."
+                log.info "Push Docker image to Artifactory Docker Registry."
                // def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
                // def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
                // buildInfo.append(dockerInfo)
