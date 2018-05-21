@@ -300,9 +300,7 @@ pipeline {
                         deploy(productionServer, serverPort)
                             }
                 }
-            }
-        }
-        
+            }        
     }
     post {
         always {
