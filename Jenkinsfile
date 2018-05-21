@@ -210,7 +210,7 @@ pipeline {
                                    "files": [
                                        {
                                            "pattern": "build/libs/*.jar",
-                                           "target": "libs-release-local/org/acam/jar/{1}/",
+                                           "target": "libs-release-local/org/acam/jar/",
                                            "props":  "where=arnaud;owner=acamu" 
                                        } ]         
                                    }
