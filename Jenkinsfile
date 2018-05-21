@@ -194,7 +194,7 @@ pipeline {
             }
         }
 
-        stage('Distribute Docker image') {
+        stage('Distribute Docker image to registry') {
             steps {
                 echo "Push Docker image to Artifactory Docker Registry."
                // def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
