@@ -224,17 +224,20 @@ pipeline {
         
         stage('Publish Docker image to registry') {
             steps {
+                script { 
                 log.info "Push Docker image to Artifactory Docker Registry."
                // def artDocker = Artifactory.docker("$DOCKER_UN_ADMIN", "$DOCKER_PW_ADMIN")
                // def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
                // buildInfo.append(dockerInfo)
                // server.publishBuildInfo(buildInfo)
+                }
             }
         }
         
       stage('Xray Quality Gate') {
           steps {
-                echo "Xray Quality Gate"
+              script { 
+                log.info "Xray Quality Gate"
           /*
             def scanConfig = [
                     'buildName'  : buildInfo.name,
@@ -244,6 +247,7 @@ pipeline {
             def scanResult = server.xrayScan scanConfig
             echo scanResult as String
         */
+              }
               }
     }
 
