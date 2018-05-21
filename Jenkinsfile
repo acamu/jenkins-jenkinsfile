@@ -10,6 +10,13 @@ properties(projectProperties)
 
 pipeline {
     agent any
+    
+     define {
+       def server
+       def rtGradle
+       def buildInfo
+     }
+    
     environment {
         branch = 'master'
         scmUrl = 'ssh://git@myScmServer.com/repos/myRepo.git'
@@ -19,14 +26,8 @@ pipeline {
         productionServer = 'production-myproject.mycompany.com'
         SERVER_ID = 'artifactory6.0'
         GRADLE_TOOL = 'gradle-4.6'
-        
     }
-    
-     define {
-       def server
-       def rtGradle
-       def buildInfo
-     }
+   
     
     tools {
      gradle "gradle-4.6"
