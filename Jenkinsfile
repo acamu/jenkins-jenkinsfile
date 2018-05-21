@@ -46,16 +46,18 @@ pipeline {
         stage ('Artifactory configuration') {
             
             steps {
-                // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
-                def server = Artifactory.server SERVER_ID
+                 script {
+                    // Obtain an Artifactory server instance, defined in Jenkins --> Manage:
+                    def server = Artifactory.server SERVER_ID
 
-                def rtGradle = Artifactory.newGradleBuild()
-                rtGradle.tool = GRADLE_TOOL // Tool name from Jenkins configuration
-                rtGradle.deployer repo: 'libs-release-local', server: server
-                rtGradle.resolver repo: 'libs-release', server: server
-                rtGradle.deployer.deployArtifacts = false // Disable artifacts deployment during Gradle run
+                    def rtGradle = Artifactory.newGradleBuild()
+                    rtGradle.tool = GRADLE_TOOL // Tool name from Jenkins configuration
+                    rtGradle.deployer repo: 'libs-release-local', server: server
+                    rtGradle.resolver repo: 'libs-release', server: server
+                    rtGradle.deployer.deployArtifacts = false // Disable artifacts deployment during Gradle run
 
-                def buildInfo = Artifactory.newBuildInfo()
+                    def buildInfo = Artifactory.newBuildInfo()
+                 }
             }
         }
         
