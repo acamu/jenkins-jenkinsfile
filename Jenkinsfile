@@ -24,14 +24,14 @@ pipeline {
     tools {
      gradle "gradle-4.6"
     }
-    
-     // Commin server Artifactoey variables
+
+    stages {
+        
+    // Commin server Artifactoey variables
     def server
     def buildInfo
     def rtGradle
-    
-    
-    stages {
+        
         stage('checkout git') {
            // when {
            //     branch 'master'  //only run these steps on the master branch
