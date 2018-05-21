@@ -25,7 +25,7 @@ pipeline {
      gradle "gradle-4.6"
     }
 
-    stages {
+   // stages {
         
         node {
         
@@ -303,7 +303,7 @@ pipeline {
                             }
                 }
             }
-        }
+      //  }
         
     }
     post {
