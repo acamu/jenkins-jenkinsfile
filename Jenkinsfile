@@ -19,6 +19,10 @@ pipeline {
         productionServer = 'production-myproject.mycompany.com'
         SERVER_ID = 'artifactory6.0'
         GRADLE_TOOL = 'gradle-4.6'
+        
+         server
+         rtGradle 
+         buildInfo 
     }
     
     tools {
@@ -26,11 +30,7 @@ pipeline {
     }
 
     stages {
-        
-             def server
-             def rtGradle 
-             def buildInfo 
-            
+
             stage('checkout git') {
                // when {
                //     branch 'master'  //only run these steps on the master branch
