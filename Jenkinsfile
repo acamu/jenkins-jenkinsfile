@@ -89,8 +89,8 @@ pipeline {
                         }
                         */
 
-                       // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                      //  archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+                       archiveArtifacts artifacts: '**/build/libs/**/*.jar', fingerprint: true , allowEmptyArchive: true
+                      //  archiveArtifacts artifacts: '**/target/*.war', fingerprint: true , allowEmptyArchive: true
                     }
                     //Or Mvn
                     //sh xxx
@@ -139,7 +139,7 @@ pipeline {
                                                 currentBuild.result = 'FAILURE'
                                             throw err
                                         } finally {
-                                           // archiveUnitTestResults()
+                                           archiveUnitTestResults()
                                            // archiveCheckstyleResults()
                                         }
                                     }
