@@ -232,7 +232,7 @@ pipeline {
                 }
             }
 */
-        node('docker') {
+
             stage('Build docker image'){
                 steps{
                     script { 
@@ -259,7 +259,7 @@ pipeline {
                     }
                 }
             }
-        }
+   
 
           stage('Xray Quality Gate') {
               steps {
