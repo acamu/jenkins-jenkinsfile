@@ -242,7 +242,7 @@ pipeline {
                         sh "pwd"
                      // prepare docker build context
                     //sh "cp target/project.war ./tmp-docker-build-context"
-                    container = docker.build("acamu/acamutest:${branch}", "--build-arg PACKAGE_VERSION=${branch } .docker")
+                    container = docker.build("acamu/acamutest:${branch}", "--build-arg PACKAGE_VERSION=${branch} .docker")
                     }
                 }
 
