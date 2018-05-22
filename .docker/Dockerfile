@@ -1,6 +1,8 @@
 # Dockerfile
 FROM  alpine:3.5
 
+COPY --from=0 /usr/local .
+
 MAINTAINER  Author Name <acamu@email.com>
 
 # Place the code version inside the webapps directory
