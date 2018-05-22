@@ -17,7 +17,8 @@ def container
 properties(projectProperties)
 
 pipeline {
-    agent any
+   //agent any
+    agent { label 'master' }
     
     environment {
         branch = 'master'
