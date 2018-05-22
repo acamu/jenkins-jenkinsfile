@@ -260,10 +260,12 @@ pipeline {
                    // def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
                    // buildInfo.append(dockerInfo)
                    // server.publishBuildInfo(buildInfo)
-                   container.push()
-                   container.push("${env.BUILD_NUMBER}")
+               withDockerRegistry([url: "http://registry-srv:5000/"]) {
+                       container.push()
+                       container.push("${env.BUILD_NUMBER}")
 
                     //container.push('latest')
+               }
                         
                     }
                 }
