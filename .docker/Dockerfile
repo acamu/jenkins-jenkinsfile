@@ -1,13 +1,10 @@
 # Dockerfile
 FROM  alpine:3.5
 
-COPY --from=0 /usr/local .
-
 MAINTAINER  Author Name <acamu@email.com>
 
-# Place the code version inside the webapps directory
+# Place the code version inside the directory
 ARG PACKAGE_VERSION
-#RUN echo "${PACKAGE_VERSION}" >> /usr/local/tomcat/webapps/version.txt
 RUN echo "${PACKAGE_VERSION}" >> /usr/local/version.txt
 
 #COPY project.war /usr/local/tomcat/webapps/project.war
