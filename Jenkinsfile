@@ -167,7 +167,6 @@ pipeline {
                     }
                 }
             }
-*/
     /*
             //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
             stage('SonarQube analysis') {
