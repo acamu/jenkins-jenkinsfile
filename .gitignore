@@ -2,3 +2,5 @@
 !/.docker
 !/src
 !/Jenkinsfile
+!/build.gradle
+!/
