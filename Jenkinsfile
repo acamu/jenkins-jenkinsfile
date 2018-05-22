@@ -101,7 +101,7 @@ pipeline {
                 }
             }
 
-        /*
+        
             stage('unit test') {
                 steps {
                     parallel(
