@@ -234,6 +234,9 @@ pipeline {
 */
 
             stage('Build docker image'){
+                agent {
+                    label "docker"
+                }
                 steps{
                     script { 
                      // prepare docker build context
