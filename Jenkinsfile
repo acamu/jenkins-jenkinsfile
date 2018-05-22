@@ -256,9 +256,9 @@ pipeline {
                    // def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
                    // buildInfo.append(dockerInfo)
                    // server.publishBuildInfo(buildInfo)
-                    container.push()
+                   container.push("${env.BUILD_NUMBER}")
 
-                    container.push('latest')
+                    //container.push('latest')
                         
                     }
                 }
