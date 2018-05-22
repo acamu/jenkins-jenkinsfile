@@ -6,9 +6,13 @@ def projectProperties = [
     [$class: 'BuildDiscarderProperty',strategy: [$class: 'LogRotator', numToKeepStr: '2']],
 ]
 
+//Artifactory variables
 def server
 def rtGradle
 def buildInfo
+
+//Docker variabes
+def container
 
 properties(projectProperties)
 
@@ -226,6 +230,17 @@ pipeline {
                 }
             }
 
+            stage('Build docker image'){
+                steps{
+                    def branchVersion = env.BRANCH_NAME
+                     // prepare docker build context
+                    //sh "cp target/project.war ./tmp-docker-build-context"
+                    container = docker.build("<myDockerRegistry>/<myDockerProjectRepo>:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} ./tmp-docker-build-context")
+
+                }
+
+            }
+        
             stage('Publish Docker image to registry') {
                 steps {
                     script { 
