@@ -249,6 +249,9 @@ pipeline {
             }
         
             stage('Publish Docker image to registry') {
+                agent {
+                    label "docker"
+                }
                 steps {
                     script { 
                     log.info "Push Docker image to Artifactory Docker Registry."
