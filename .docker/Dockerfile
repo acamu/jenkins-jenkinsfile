@@ -4,8 +4,9 @@ FROM  alpine:3.5
 MAINTAINER  Author Name <acamu@email.com>
 
 # Place the code version inside the webapps directory
-#ARG PACKAGE_VERSION
+ARG PACKAGE_VERSION
 #RUN echo "${PACKAGE_VERSION}" >> /usr/local/tomcat/webapps/version.txt
+RUN echo "${PACKAGE_VERSION}" >> /usr/local/version.txt
 
 #COPY project.war /usr/local/tomcat/webapps/project.war
 COPY docker-entrypoint.sh /
