@@ -1,5 +1,5 @@
 /*
-!/.docker
+!/.docker/*
 !/src
 !/Jenkinsfile
 !/build.gradle
