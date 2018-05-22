@@ -232,10 +232,9 @@ pipeline {
 
             stage('Build docker image'){
                 steps{
-                    def branchVersion = env.BRANCH_NAME
                      // prepare docker build context
                     //sh "cp target/project.war ./tmp-docker-build-context"
-                    container = docker.build("<myDockerRegistry>/<myDockerProjectRepo>:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} ./tmp-docker-build-context", "./docker")
+                    container = docker.build("<myDockerRegistry>/<myDockerProjectRepo>:${branch}", "--build-arg PACKAGE_VERSION=${branchVersion} ./tmp-docker-build-context", "./docker")
 
                 }
 
