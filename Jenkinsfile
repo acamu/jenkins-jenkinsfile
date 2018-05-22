@@ -234,9 +234,9 @@ pipeline {
 */
 
             stage('Build docker image'){
-                agent {
-                    label "docker"
-                }
+                //agent {
+               //     label "docker"
+               // }
                 steps{
                     script { 
                         sh "pwd"
