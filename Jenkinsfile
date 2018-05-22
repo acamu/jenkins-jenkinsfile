@@ -101,6 +101,7 @@ pipeline {
                 }
             }
 
+        /*
             stage('unit test') {
                 steps {
                     parallel(
@@ -166,6 +167,7 @@ pipeline {
                     }
                 }
             }
+*/
     /*
             //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
             stage('SonarQube analysis') {
@@ -199,6 +201,7 @@ pipeline {
                 }
             } 
     */
+/*
             //https://github.com/michaelhuettermann/sandbox/blob/master/pipeline/jenkins/MyDeliveryPipeline/pipeline.groovy      
             stage('Distribute artifact to repository') {
                 steps {
@@ -229,13 +232,13 @@ pipeline {
                     }
                 }
             }
-
+*/
             stage('Build docker image'){
                 steps{
                     script { 
                      // prepare docker build context
                     //sh "cp target/project.war ./tmp-docker-build-context"
-                    container = docker.build("<myDockerRegistry>/<myDockerProjectRepo>:${branch}", "--build-arg PACKAGE_VERSION=${branch } ./docker")
+                    container = docker.build("acamu/acamutest:${branch}", "--build-arg PACKAGE_VERSION=${branch } ./docker")
                     }
                 }
 
