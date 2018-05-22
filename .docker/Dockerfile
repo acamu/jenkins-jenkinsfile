@@ -1,6 +1,8 @@
 # Dockerfile
 FROM alpine:3.5
 
+FROM alpine:3.5
+
 MAINTAINER Author Name <acamu@email.com>
 
 # Place the code version inside the directory
