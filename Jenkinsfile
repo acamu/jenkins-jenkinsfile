@@ -260,7 +260,7 @@ pipeline {
                    // def dockerInfo = artDocker.push("aaaaaaa:latest", "docker-dev-local")
                    // buildInfo.append(dockerInfo)
                    // server.publishBuildInfo(buildInfo)
-                 docker.withRegistry('https://registry-srv:5000/') {     
+                 docker.withRegistry('http://registry-srv:5000/') {     
                 // withDockerRegistry([credentialsId: '', url: "https://registry-srv:5000/"]) {
                        container.push()
                        container.push("${env.BUILD_NUMBER}")
