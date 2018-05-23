@@ -234,7 +234,7 @@ pipeline {
             }
 */
 
-            stage('Build docker image'){
+            stage('Build and publish docker image to registry'){
                 agent {
                     label "docker"
                 }
@@ -244,21 +244,29 @@ pipeline {
                      // prepare docker build context
                     //sh "cp target/project.war ./tmp-docker-build-context"
                     container = docker.build("acamu/acamutest:${branch}", "--build-arg PACKAGE_VERSION=${branch} .docker")
+                        
+                     log.info "Push Docker image to Docker Registry."
+   
+                      docker.withRegistry('http://localhost:5000/') {   
+                       container.push()
+                       container.push("${env.BUILD_NUMBER}")
+                    }
+                        
                     }
                 }
 
             }
-        
+        /*
             stage('Publish Docker image to registry') {
                 agent {
                     label "docker"
-                    /* declarative stuff
+                     declarative stuff
                      docker {
                         image 'registry.az1:5043/maven-proto'
                         registryUrl 'https://registry.az1'
                         registryCredentialsId 'credentials-id'
                         args '-v /var/jenkins_home/.m2:/root/.m2'
-                    }*/
+                    }
                 }
                 steps {
                     script { 
@@ -279,7 +287,7 @@ pipeline {
                     }
                 }
             }
-   
+   */
 
           stage('Xray Quality Gate') {
               steps {
