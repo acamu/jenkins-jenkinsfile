@@ -252,6 +252,13 @@ pipeline {
             stage('Publish Docker image to registry') {
                 agent {
                     label "docker"
+                    /* declarative stuff
+                     docker {
+                        image 'registry.az1:5043/maven-proto'
+                        registryUrl 'https://registry.az1'
+                        registryCredentialsId 'credentials-id'
+                        args '-v /var/jenkins_home/.m2:/root/.m2'
+                    }*/
                 }
                 steps {
                     script { 
