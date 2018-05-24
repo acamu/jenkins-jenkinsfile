@@ -37,7 +37,7 @@ pipeline {
 
     stages {
 
-            stage('checkout git') {
+            stage('Git clone and setup') {
                // when {
                //     branch 'master'  //only run these steps on the master branch
                // }
@@ -72,7 +72,7 @@ pipeline {
                 }
             }
 
-            stage('build') {
+            stage('Build and tests') {
                 //when {
                //     branch 'master'  //only run these steps on the master branch
                 //}
@@ -234,7 +234,7 @@ pipeline {
             }
 */
 
-            stage('Build and publish docker image to registry'){
+            stage('Build and Publish docker image to registry'){
                 agent {
                     label "docker"
                 }
