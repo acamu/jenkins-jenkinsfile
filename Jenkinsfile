@@ -77,7 +77,7 @@ pipeline {
                 steps {
                     script {
                         //def tag = "${pom.artifactId}-${BRANCH_NAME}-${version}"
-                        def tag = 
+                        def tag =  "myTag"
                         git.git_tag_local(tag)
                     }
                 }
