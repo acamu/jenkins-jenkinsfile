@@ -36,20 +36,7 @@ pipeline {
      gradle "gradle-4.6"
     }
 
-    stages {
-        
-         stage ('gate'){
-             steps {
-                     script {
-                         
-            String urlss = 'https://jsonplaceholder.typicode.com/posts/1'
-            String jsonReturn = httpCall.callHTTPGET(urlss, 'test');
-            
-            log.info 'value'+jsonReturn
-                     }
-             }
-        }
-        
+    stages {    
 
             stage('Git clone and setup') {
                // when {
@@ -66,6 +53,18 @@ pipeline {
                     checkout scm
                 }
             }
+        
+          stage ('gate'){
+             steps {
+                     script {
+                         
+                        String urlss = 'https://jsonplaceholder.typicode.com/posts/1'
+                        String jsonReturn = httpCall.callHTTPGET(urlss, 'test');
+
+                        log.info 'value'+jsonReturn
+                     }
+             }
+        }
 
             stage ('Artifactory configuration') {
 
