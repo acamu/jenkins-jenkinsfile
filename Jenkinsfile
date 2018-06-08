@@ -58,8 +58,8 @@ pipeline {
              steps {
                      script {
                          
-                        String urlss = 'https://jsonplaceholder.typicode.com/posts/1'
-                        String jsonReturn = httpCall.callHTTPGET(urlss, 'test');
+                        String urlss = 'https://jsonplaceholder.typicode.com'
+                        String jsonReturn = httpCall.callHTTPGET(urlss, '/posts/1');
 
                         log.info 'value'+jsonReturn
                      }
