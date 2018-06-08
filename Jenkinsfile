@@ -83,7 +83,7 @@ pipeline {
                 }
             }
 
-            stage('Build and tests') {
+            stage('Build') {
                 //when {
                //     branch 'master'  //only run these steps on the master branch
                 //}
@@ -179,6 +179,13 @@ pipeline {
                     }
                 }
             }
+        
+        stage ('gate'){
+            String url = 'https://jsonplaceholder.typicode.com/posts/1'
+            String jsonReturn = httpCall.callHTTPGET(url, 'test');
+            
+            log.info 'value $jsonReturn'
+        }
     /*
             //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
             stage('SonarQube analysis') {
