@@ -181,10 +181,15 @@ pipeline {
             }
         
         stage ('gate'){
+             steps {
+                     script {
+                         
             String url = 'https://jsonplaceholder.typicode.com/posts/1'
             String jsonReturn = httpCall.callHTTPGET(url, 'test');
             
             log.info 'value $jsonReturn'
+                     }
+             }
         }
     /*
             //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
