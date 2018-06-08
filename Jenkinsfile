@@ -37,6 +37,19 @@ pipeline {
     }
 
     stages {
+        
+         stage ('gate'){
+             steps {
+                     script {
+                         
+            String urlss = 'https://jsonplaceholder.typicode.com/posts/1'
+            String jsonReturn = httpCall.callHTTPGET(urlss, 'test');
+            
+            log.info 'value $jsonReturn'
+                     }
+             }
+        }
+        
 
             stage('Git clone and setup') {
                // when {
@@ -180,17 +193,6 @@ pipeline {
                 }
             }
         
-        stage ('gate'){
-             steps {
-                     script {
-                         
-            String urlss = 'https://jsonplaceholder.typicode.com/posts/1'
-            String jsonReturn = httpCall.callHTTPGET(urlss, 'test');
-            
-            log.info 'value $jsonReturn'
-                     }
-             }
-        }
     /*
             //https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins
             stage('SonarQube analysis') {
