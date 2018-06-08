@@ -45,7 +45,7 @@ pipeline {
             String urlss = 'https://jsonplaceholder.typicode.com/posts/1'
             String jsonReturn = httpCall.callHTTPGET(urlss, 'test');
             
-            log.info 'value $jsonReturn'
+            log.info 'value'+jsonReturn
                      }
              }
         }
