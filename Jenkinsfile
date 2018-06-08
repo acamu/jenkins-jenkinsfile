@@ -29,7 +29,7 @@ pipeline {
         productionServer = 'production-myproject.mycompany.com'
         SERVER_ID = 'artifactory6.0'
         GRADLE_TOOL = 'gradle-4.6'
-        env.GIT_BRANCH_NAME = env.BRANCH_NAME ?: git.git_sh("rev-parse --abbrev-ref HEAD")
+       // env.GIT_BRANCH_NAME = env.BRANCH_NAME ?: git.git_sh("rev-parse --abbrev-ref HEAD")
     }
 
     tools {
