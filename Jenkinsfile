@@ -363,6 +363,14 @@ pipeline {
                          }
                 }
             }
+        
+            stage('QA Test'){
+                  //sh 'gradle test -Dwebdriver.type=chrome -Dwebdriver.chrome.driver=E:/Workspace/chromedriver.exe -Dwebdriver.type=remote -Dwebdriver.url=http://localhost:4444/wd/hub'
+                // Or something like that 
+                //sh './selenium/run-selenium-tests.sh'
+                }
+            
+            }
 
             stage('deploy production') {
                 steps {
