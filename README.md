@@ -1,5 +1,7 @@
 # jenkins-jenkinsfile
 
+[![Build Status](https://travis-ci.org/acamu/jenkins-jenkinsfile.svg?branch=master)](https://travis-ci.org/acamu/jenkins-jenkinsfile)
+
 Sources
 
 [1] https://jenkins.io/blog/2017/10/02/pipeline-templates-with-shared-libraries/
