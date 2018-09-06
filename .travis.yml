@@ -3,3 +3,8 @@ language:
 
 jdk:  
   - oraclejdk8
+  
+script: 
+  - gradle clean 
+  - gradle build 
+  - gradle test
