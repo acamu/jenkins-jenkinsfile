@@ -1,5 +1,6 @@
 # jenkins-jenkinsfile
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/66bfa15fb5a548a38f433ba66e092021)](https://www.codacy.com/app/acamu/jenkins-jenkinsfile?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=acamu/jenkins-jenkinsfile&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/acamu/jenkins-jenkinsfile.svg?branch=master)](https://travis-ci.org/acamu/jenkins-jenkinsfile)
 
 Sources
