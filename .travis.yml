@@ -5,6 +5,6 @@ jdk:
   - oraclejdk8
   
 script: 
-  - gradle clean 
-  - gradle build 
-  - gradle test
+  - gradle clean build -x test
+  - gradle test junit5CodeCoverageReport
+  
