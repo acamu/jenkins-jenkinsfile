@@ -1,4 +1,9 @@
 public class HelloWorld {
+     /**
+     * Instance unique pré-initialisée
+     */
+    private static HelloWorld INSTANCE = new HelloWorld();
+    
     public static void main(String[] args) {
         // Prints "Hello, World" to the terminal
         System.out.println("Hello, World");
@@ -9,11 +14,6 @@ public class HelloWorld {
      */
     private HelloWorld() {
     }
-
-    /**
-     * Instance unique pré-initialisée
-     */
-    private static HelloWorld INSTANCE = new HelloWorld();
 
     /**
      * Point d'accès pour l'instance unique du singleton
